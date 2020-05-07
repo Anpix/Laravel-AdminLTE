@@ -2,8 +2,8 @@
 
 namespace JeroenNoten\LaravelAdminLte\Menu\Filters;
 
-use JeroenNoten\LaravelAdminLte\Menu\Builder;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use JeroenNoten\LaravelAdminLte\Menu\Builder;
 
 class HrefFilter implements FilterInterface
 {
@@ -20,6 +20,12 @@ class HrefFilter implements FilterInterface
             $item['href'] = $this->makeHref($item);
         }
 
+        if (isset($item['submenu'])) {
+            $item['submenu'] = array_map(function ($subitem) use ($builder) {
+                return $this->transform($subitem, $builder);
+            }, $item['submenu']);
+        }
+
         return $item;
     }
 
@@ -30,6 +36,10 @@ class HrefFilter implements FilterInterface
         }
 
         if (isset($item['route'])) {
+            if (is_array($item['route'])) {
+                return $this->urlGenerator->route($item['route'][0], $item['route'][1]);
+            }
+
             return $this->urlGenerator->route($item['route']);
         }
 

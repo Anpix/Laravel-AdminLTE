@@ -2,9 +2,9 @@
 
 namespace JeroenNoten\LaravelAdminLte\Menu;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ActiveChecker
 {
@@ -20,48 +20,43 @@ class ActiveChecker
 
     public function isActive($item)
     {
-        if (isset($item['active'])) {
-            return $this->isExplicitActive($item['active']);
+        if (isset($item['submenu']) && $this->containsActive($item['submenu'])) {
+            return true;
         }
 
-        if (isset($item['submenu'])) {
-            return $this->containsActive($item['submenu']);
+        if (isset($item['active']) && $this->isExplicitActive($item['active'])) {
+            return true;
         }
 
-        if (isset($item['href'])) {
-            return $this->checkExactOrSub($item['href']);
+        if (isset($item['href']) && $this->checkPattern($item['href'])) {
+            return true;
         }
 
         // Support URL for backwards compatibility
-        if (isset($item['url'])) {
-            return $this->checkExactOrSub($item['url']);
+        if (isset($item['url']) && $this->checkPattern($item['url'])) {
+            return true;
         }
 
         return false;
     }
 
-    protected function checkExactOrSub($url)
-    {
-        return $this->checkExact($url) || $this->checkSub($url);
-    }
-
-    protected function checkExact($url)
-    {
-        return $this->checkPattern($url);
-    }
-
-    protected function checkSub($url)
-    {
-        return $this->checkPattern($url.'/*') || $this->checkPattern($url.'?*');
-    }
-
     protected function checkPattern($pattern)
     {
-        $fullUrlPattern = $this->url->to($pattern);
+        $urlPattern = $this->url->to($pattern);
 
-        $fullUrl = $this->request->fullUrl();
+        $url = $this->request->url();
 
-        return Str::is($fullUrlPattern, $fullUrl);
+        if (mb_substr($pattern, 0, 6) === 'regex:') {
+            $regex = mb_substr($pattern, 6);
+
+            if (preg_match($regex, $this->request->path()) == 1) {
+                return true;
+            }
+
+            return false;
+        }
+
+        return Str::is($urlPattern, $url);
     }
 
     protected function containsActive($items)
@@ -77,8 +72,12 @@ class ActiveChecker
 
     private function isExplicitActive($active)
     {
+        if (! is_array($active)) {
+            return $active;
+        }
+
         foreach ($active as $url) {
-            if ($this->checkExact($url)) {
+            if ($this->checkPattern($url)) {
                 return true;
             }
         }

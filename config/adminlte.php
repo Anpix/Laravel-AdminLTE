@@ -7,160 +7,261 @@ return [
     | Title
     |--------------------------------------------------------------------------
     |
-    | The default title of your admin panel, this goes into the title tag
-    | of your page. You can override it per page with the title section.
-    | You can optionally also specify a title prefix and/or postfix.
+    | Here you can change the default title of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#61-title
     |
     */
 
-    'title' => 'AdminLTE 2',
-
+    'title' => 'AdminLTE 3',
     'title_prefix' => '',
-
     'title_postfix' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Favicon
+    |--------------------------------------------------------------------------
+    |
+    | Here you can activate the favicon.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#62-favicon
+    |
+    */
+
+    'use_ico_only' => false,
+    'use_full_favicon' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Logo
     |--------------------------------------------------------------------------
     |
-    | This logo is displayed at the upper left corner of your admin panel.
-    | You can use basic HTML here if you want. The logo has also a mini
-    | variant, used for the mini side bar. Make it 3 letters or so
+    | Here you can change the logo of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#63-logo
     |
     */
 
     'logo' => '<b>Admin</b>LTE',
-
-    'logo_mini' => '<b>A</b>LT',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img_xl' => null,
+    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_alt' => 'AdminLTE',
 
     /*
     |--------------------------------------------------------------------------
-    | Skin Color
+    | User Menu
     |--------------------------------------------------------------------------
     |
-    | Choose a skin color for your admin panel. The available skin colors:
-    | blue, black, purple, yellow, red, and green. Each skin also has a
-    | light variant: blue-light, purple-light, purple-light, etc.
+    | Here you can activate and change the user menu.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#64-user-menu
     |
     */
 
-    'skin' => 'blue',
+    'usermenu_enabled' => true,
+    'usermenu_header' => false,
+    'usermenu_header_class' => 'bg-primary',
+    'usermenu_image' => false,
+    'usermenu_desc' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
-    | Choose a layout for your admin panel. The available layout options:
-    | null, 'boxed', 'fixed', 'top-nav'. null is the default, top-nav
-    | removes the sidebar and places your menu in the top navbar
+    | Here we change the layout of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#65-layout
     |
     */
 
-    'layout' => null,
+    'layout_topnav' => null,
+    'layout_boxed' => null,
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
+    'layout_fixed_footer' => null,
 
     /*
     |--------------------------------------------------------------------------
-    | Collapse Sidebar
+    | Extra Classes
     |--------------------------------------------------------------------------
     |
-    | Here we choose and option to be able to start with a collapsed side
-    | bar. To adjust your sidebar layout simply set this  either true
-    | this is compatible with layouts except top-nav layout option
+    | Here you can change the look and behavior of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#66-classes
     |
     */
 
-    'collapse_sidebar' => false,
+    'classes_body' => '',
+    'classes_brand' => '',
+    'classes_brand_text' => '',
+    'classes_content_header' => '',
+    'classes_content' => '',
+    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar_nav' => '',
+    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav_nav' => 'navbar-expand-md',
+    'classes_topnav_container' => 'container',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sidebar
+    |--------------------------------------------------------------------------
+    |
+    | Here we can modify the sidebar of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#67-sidebar
+    |
+    */
+
+    'sidebar_mini' => true,
+    'sidebar_collapse' => false,
+    'sidebar_collapse_auto_size' => false,
+    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember_no_transition' => true,
+    'sidebar_scrollbar_theme' => 'os-theme-light',
+    'sidebar_scrollbar_auto_hide' => 'l',
+    'sidebar_nav_accordion' => true,
+    'sidebar_nav_animation_speed' => 300,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Control Sidebar (Right Sidebar)
+    |--------------------------------------------------------------------------
+    |
+    | Here we can modify the right sidebar aka control sidebar of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#68-control-sidebar-right-sidebar
+    |
+    */
+
+    'right_sidebar' => false,
+    'right_sidebar_icon' => 'fas fa-cogs',
+    'right_sidebar_theme' => 'dark',
+    'right_sidebar_slide' => true,
+    'right_sidebar_push' => true,
+    'right_sidebar_scrollbar_theme' => 'os-theme-light',
+    'right_sidebar_scrollbar_auto_hide' => 'l',
 
     /*
     |--------------------------------------------------------------------------
     | URLs
     |--------------------------------------------------------------------------
     |
-    | Register here your dashboard, logout, login and register URLs. The
-    | logout URL automatically sends a POST request in Laravel 5.3 or higher.
-    | You can set the request to a GET or POST with logout_method.
-    | Set register_url to null if you don't want a register link.
+    | Here we can modify the url settings of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#69-urls
     |
     */
+
+    'use_route_url' => false,
 
     'dashboard_url' => 'home',
 
     'logout_url' => 'logout',
 
-    'logout_method' => null,
-
     'login_url' => 'login',
 
     'register_url' => 'register',
+
+    'password_reset_url' => 'password/reset',
+
+    'password_email_url' => 'password/email',
+
+    'profile_url' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel Mix
+    |--------------------------------------------------------------------------
+    |
+    | Here we can enable the Laravel Mix option for the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#610-laravel-mix
+    |
+    */
+
+    'enabled_laravel_mix' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
     |
-    | Specify your menu items to display in the left sidebar. Each menu item
-    | should have a text and a URL. You can also specify an icon from Font
-    | Awesome. A string instead of an array represents a header in sidebar
-    | layout. The 'can' is a filter on Laravel's built in Gate functionality.
+    | Here we can modify the sidebar/top navigation of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#611-menu
+    |
     */
 
     'menu' => [
         [
-            'lang' => 'search',
+            'text' => 'search',
             'search' => true,
+            'topnav' => true,
         ],
-        ['header' => 'main_navigation'],
         [
-            'lang' => 'blog',
+            'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'lang'        => 'pages',
+            'text'        => 'pages',
             'url'         => 'admin/pages',
-            'icon'        => 'far fa-file',
+            'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
-            'lang' => 'profile',
+            'text' => 'profile',
             'url'  => 'admin/settings',
-            'icon' => 'user',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'lang' => 'change_password',
+            'text' => 'change_password',
             'url'  => 'admin/settings',
-            'icon' => 'lock',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'lang'    => 'multilevel',
-            'icon'    => 'share',
+            'text'    => 'multilevel',
+            'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'lang' => 'level_one',
+                    'text' => 'level_one',
                     'url'  => '#',
                 ],
                 [
-                    'lang'    => 'level_one',
+                    'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
                         [
-                            'lang' => 'level_two',
+                            'text' => 'level_two',
                             'url'  => '#',
                         ],
                         [
-                            'lang'    => 'level_two',
+                            'text'    => 'level_two',
                             'url'     => '#',
                             'submenu' => [
                                 [
-                                    'lang' => 'level_three',
+                                    'text' => 'level_three',
                                     'url'  => '#',
                                 ],
                                 [
-                                    'lang' => 'level_three',
+                                    'text' => 'level_three',
                                     'url'  => '#',
                                 ],
                             ],
@@ -168,23 +269,23 @@ return [
                     ],
                 ],
                 [
-                    'lang' => 'level_one',
+                    'text' => 'level_one',
                     'url'  => '#',
                 ],
             ],
         ],
         ['header' => 'labels'],
         [
-            'lang'       => 'important',
+            'text'       => 'important',
             'icon_color' => 'red',
         ],
         [
-            'lang'       => 'warning',
+            'text'       => 'warning',
             'icon_color' => 'yellow',
         ],
         [
-            'lang'       => 'information',
-            'icon_color' => 'aqua',
+            'text'       => 'information',
+            'icon_color' => 'cyan',
         ],
     ],
 
@@ -193,10 +294,10 @@ return [
     | Menu Filters
     |--------------------------------------------------------------------------
     |
-    | Choose what filters you want to include for rendering the menu.
-    | You can add your own filters to this array after you've created them.
-    | You can comment out the GateFilter if you don't want to use Laravel's
-    | built in Gate functionality
+    | Here we can modify the menu filters of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#612-menu-filters
     |
     */
 
@@ -207,6 +308,8 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
     ],
 
     /*
@@ -214,37 +317,88 @@ return [
     | Plugins Initialization
     |--------------------------------------------------------------------------
     |
-    | Choose which JavaScript plugins should be included. At this moment,
-    | DataTables,Select2, Chartjs and SweetAlert are supported as a plugin. Set the value to true
-    | to include the JavaScript file from a CDN via a script tag.
+    | Here we can modify the plugins used inside the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#613-plugins
     |
     */
 
     'plugins' => [
-        'datatables' => true,
-        'select2'    => true,
-        'chartjs'    => true,
-        'pace'       => true,
-        'sweetalert' => true,
-    ],
-
-    /*
-     |--------------------------------------------------------------------------
-     | Pace Plugins Initialization
-     |--------------------------------------------------------------------------
-     |
-     | Set color & type value to include the theme file from a CDN via a script tag.
-     |
-     | color options are black, blue, green, orange, pink, purple, red, silver,
-     |   white & yellow
-     |
-     | type options are barber-shop, big-counter, bounce, center-atom, center-circle,
-     |   center-radar, center-simple, corner-indicator, fill-left, flash, flat-top,
-     |   loading-bar, mac-osx, minimal
-     */
-
-    'pace' => [
-        'color' => 'green',
-        'type' => 'center-radar',
+        [
+            'name' => 'Datatables',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Select2',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Chartjs',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Sweetalert2',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Pace',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
     ],
 ];

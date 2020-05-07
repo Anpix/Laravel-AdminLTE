@@ -1,76 +1,110 @@
 @extends('adminlte::master')
 
 @section('adminlte_css')
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/auth.css') }}">
+    @stack('css')
     @yield('css')
 @stop
 
-@section('body_class', 'register-page')
+@section('classes_body', 'register-page')
+
+@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
+@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
+@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
+
+@if (config('adminlte.use_route_url', false))
+    @php( $login_url = $login_url ? route($login_url) : '' )
+    @php( $register_url = $register_url ? route($register_url) : '' )
+    @php( $dashboard_url = $dashboard_url ? route($dashboard_url) : '' )
+@else
+    @php( $login_url = $login_url ? url($login_url) : '' )
+    @php( $register_url = $register_url ? url($register_url) : '' )
+    @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
+@endif
 
 @section('body')
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">{{ __('adminlte::adminlte.register_message') }}</p>
+                <form action="{{ $register_url }}" method="post">
+                    {{ csrf_field() }}
 
-        <div class="register-box-body">
-            <p class="login-box-msg">{{ trans('adminlte::adminlte.register_message') }}</p>
-            <form action="{{ url(config('adminlte.register_url', 'register')) }}" method="post">
-                {!! csrf_field() !!}
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
+                               placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
 
-                <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                           placeholder="{{ trans('adminlte::adminlte.full_name') }}">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                    @if ($errors->has('name'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                           placeholder="{{ trans('adminlte::adminlte.email') }}">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
-                    <input type="password" name="password" class="form-control"
-                           placeholder="{{ trans('adminlte::adminlte.password') }}">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    @if ($errors->has('password'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-                    <input type="password" name="password_confirmation" class="form-control"
-                           placeholder="{{ trans('adminlte::adminlte.retype_password') }}">
-                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                    @if ($errors->has('password_confirmation'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <button type="submit"
-                        class="btn btn-primary btn-block btn-flat"
-                >{{ trans('adminlte::adminlte.register') }}</button>
-            </form>
-            <div class="auth-links">
-                <a href="{{ url(config('adminlte.login_url', 'login')) }}"
-                   class="text-center">{{ trans('adminlte::adminlte.i_already_have_a_membership') }}</a>
-            </div>
-        </div>
-        <!-- /.form-box -->
+                        @if ($errors->has('name'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}"
+                               placeholder="{{ __('adminlte::adminlte.email') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('email'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                               placeholder="{{ __('adminlte::adminlte.password') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('password'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                               placeholder="{{ __('adminlte::adminlte.retype_password') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('password_confirmation'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">
+                        {{ __('adminlte::adminlte.register') }}
+                    </button>
+                </form>
+                <p class="mt-2 mb-1">
+                    <a href="{{ $login_url }}">
+                        {{ __('adminlte::adminlte.i_already_have_a_membership') }}
+                    </a>
+                </p>
+            </div><!-- /.card-body -->
+        </div><!-- /.card -->
     </div><!-- /.register-box -->
 @stop
 
 @section('adminlte_js')
+    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    @stack('js')
     @yield('js')
 @stop

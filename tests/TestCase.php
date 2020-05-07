@@ -1,37 +1,52 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Auth\GenericUser;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Routing\RouteCollection;
-use JeroenNoten\LaravelAdminLte\AdminLte;
-use JeroenNoten\LaravelAdminLte\Menu\Builder;
-use JeroenNoten\LaravelAdminLte\Menu\ActiveChecker;
-use JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter;
-use JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Http\Request;
+use Illuminate\Routing\RouteCollection;
+use Illuminate\Routing\UrlGenerator;
+use JeroenNoten\LaravelAdminLte\AdminLte;
+use JeroenNoten\LaravelAdminLte\Menu\ActiveChecker;
+use JeroenNoten\LaravelAdminLte\Menu\Builder;
 use JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter;
 use JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter;
+use JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter;
+use JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter;
+use JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter;
+use JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter;
 use JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends BaseTestCase
 {
     private $dispatcher;
 
     private $routeCollection;
 
-    protected function makeMenuBuilder($uri = 'http://example.com', GateContract $gate = null)
+    protected function makeMenuBuilder($uri = 'http://example.com', GateContract $gate = null, $locale = 'en')
     {
         return new Builder([
             new HrefFilter($this->makeUrlGenerator($uri)),
             new ActiveFilter($this->makeActiveChecker($uri)),
-            new SubmenuFilter(),
+            new SubmenuFilter($this->makeActiveChecker($uri)),
             new ClassesFilter(),
+            new DataFilter(),
             new GateFilter($gate ?: $this->makeGate()),
+            new LangFilter($this->makeTranslator($locale)),
         ]);
+    }
+
+    protected function makeTranslator($locale = 'en')
+    {
+        $translationLoader = new Illuminate\Translation\FileLoader(new Illuminate\Filesystem\Filesystem, 'resources/lang/');
+
+        $translator = new Illuminate\Translation\Translator($translationLoader, $locale);
+        $translator->addNamespace('adminlte', 'resources/lang/');
+
+        return $translator;
     }
 
     protected function makeActiveChecker($uri = 'http://example.com')
